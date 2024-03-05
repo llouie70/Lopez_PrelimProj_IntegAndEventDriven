@@ -20,6 +20,8 @@
         <Button x:Name="button2" Content="002" HorizontalAlignment="Right" Margin="0,173,312,0" VerticalAlignment="Top" RenderTransformOrigin="1.452,0.453" Click="button2_Click"/>
         <Button x:Name="button1" Content="001" HorizontalAlignment="Right" Margin="0,173,284,0" VerticalAlignment="Top" RenderTransformOrigin="1.452,0.453" Click="button1_Click"/>
         <Button x:Name="buttonSubmit" Content="Submit" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Click="buttonSubmit_Click"/>
+        <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Center" Margin="0,285,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="buttonStartGame" Content="Start Game" HorizontalAlignment="Center" Margin="0,330,0,0" VerticalAlignment="Top" Click="buttonStartGame_Click"/>
 
     </Grid>
 </Window>

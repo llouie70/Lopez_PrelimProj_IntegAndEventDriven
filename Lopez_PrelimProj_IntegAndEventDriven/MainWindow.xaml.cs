@@ -24,111 +24,89 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         int number = 0;
         Random rnd = new Random();
         char[] textBox = null;
+        int round = 0;
         int score = 0;
+        int diff = -1;
+        int defaulttimer = 0;
+        int timer = 0;
+        int reduction = 0;
+        bool gameStart = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            GenerateNumber();
+            comboboxDifficulty.Items.Add("Easy");
+            comboboxDifficulty.Items.Add("Normal");
+            comboboxDifficulty.Items.Add("Hard");
         }
 
         private void GenerateNumber()
         {
+            timer = defaulttimer - reduction;
+            labelTimer.Content = timer.ToString();
             textboxBinaryNumber.Text = "00000000";
             textBoxBinary = textboxBinaryNumber.Text;
             textBox = new char[textBoxBinary.Length];
             for (int i = 0; i < textBoxBinary.Length; i++)
                 textBox[i] = textBoxBinary[i];
-            number = rnd.Next(0, 255) + 1;
+            if(diff == 0)
+                number = rnd.Next(0, 85) + 1;
+            if(diff == 1)
+                number = rnd.Next(86, 170) + 1;
+            if(diff == 2)
+                number = rnd.Next(171, 255) + 1;
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
         }
-        private void button128_Click(object sender, RoutedEventArgs e)
+
+        private void ChangeNumber(int x)
         {
-            if (textBox[0] == '0')
-                textBox[0] = '1';
+            if (textBox[x] == '0')
+                textBox[x] = '1';
             else
-                textBox[0] = '0';
+                textBox[x] = '0';
             textboxBinaryNumber.Text = "";
             for (int i = 0; i < textBox.Length; i++)
                 textboxBinaryNumber.Text += textBox[i];
+        }
+        private void button128_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeNumber(0);
         }
 
         private void button64_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[1] == '0')
-                textBox[1] = '1';
-            else
-                textBox[1] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(1);
         }
 
         private void button32_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[2] == '0')
-                textBox[2] = '1';
-            else
-                textBox[2] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(2);
         }
 
         private void button16_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[3] == '0')
-                textBox[3] = '1';
-            else
-                textBox[3] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(3);
         }
 
         private void button8_Click(object sender, RoutedEventArgs e)
-        {
-            if (textBox[4] == '0')
-                textBox[4] = '1';
-            else
-                textBox[4] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+        {   
+            ChangeNumber(4);
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[5] == '0')
-                textBox[5] = '1';
-            else
-                textBox[5] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(5);
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[6] == '0')
-                textBox[6] = '1';
-            else
-                textBox[6] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(6);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox[7] == '0')
-                textBox[7] = '1';
-            else
-                textBox[7] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            ChangeNumber(7);
         }
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
@@ -144,10 +122,40 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             {
                 MessageBox.Show("Correct!");
                 score += 5;
+                round++;
+                if(round < 11)
+                    reduction += (4 - diff);
                 GenerateNumber();
             }
             else
                 MessageBox.Show("Wrong!");
+        }
+
+        private void buttonStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            if(diff == -1 && gameStart == false)
+            {
+                if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
+                {
+                    diff = 0;
+                    defaulttimer = 60;
+                    gameStart = true;
+                }
+                if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
+                {
+                    diff = 1;
+                    defaulttimer = 45;
+                    gameStart = true;
+                }
+                if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
+                {
+                    diff = 2;
+                    defaulttimer = 30;
+                    gameStart = true;
+                }
+                if (gameStart)
+                    GenerateNumber();
+            }
         }
     }
 }
