@@ -84,13 +84,18 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
 
         private void ChangeNumber(int x)
         {
-            if (textBox[x] == '0')
-                textBox[x] = '1';
+            if (textBox == null)
+                MessageBox.Show("Pick a difficulty first!");
             else
-                textBox[x] = '0';
-            textboxBinaryNumber.Text = "";
-            for (int i = 0; i < textBox.Length; i++)
-                textboxBinaryNumber.Text += textBox[i];
+            {
+                if (textBox[x] == '0')
+                    textBox[x] = '1';
+                else
+                    textBox[x] = '0';
+                textboxBinaryNumber.Text = "";
+                for (int i = 0; i < textBox.Length; i++)
+                    textboxBinaryNumber.Text += textBox[i];
+            }
         }
         private void button128_Click(object sender, RoutedEventArgs e)
         {
