@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Lopez_PrelimProj_IntegAndEventDriven
 {
@@ -20,6 +21,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer _dt = null;
         string textBoxBinary = "";
         int number = 0;
         Random rnd = new Random();
@@ -31,6 +33,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         int timer = 0;
         int reduction = 0;
         bool gameStart = false;
+        int playtime = 0;
 
         public MainWindow()
         {
@@ -52,11 +55,31 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             if(diff == 0)
                 number = rnd.Next(0, 85) + 1;
             if(diff == 1)
-                number = rnd.Next(86, 170) + 1;
+                number = rnd.Next(85, 170) + 1;
             if(diff == 2)
-                number = rnd.Next(171, 255) + 1;
+                number = rnd.Next(170, 255) + 1;
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
+            _dt = new DispatcherTimer();
+            _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
+            _dt.Tick += _dt_Tick;
+            _dt.Start();
+        }
+
+        private void _dt_Tick(object sender, EventArgs e)
+        {
+            int num = int.Parse(labelTimer.Content.ToString());
+            num--;
+            playtime++;
+            labelTimer.Content = num.ToString();
+            if (num <= 0)
+            {
+                MessageBox.Show("Game over! Your score is " + score + " with a play time of " + playtime + " seconds.");
+                gameStart = false;
+                _dt.Stop();
+                diff = -1;
+                comboboxDifficulty.SelectedItem = null;
+            }
         }
 
         private void ChangeNumber(int x)
@@ -111,6 +134,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
         {
+            _dt.Stop();
             int query = 0;
             int value = 128;
             for(int x = 0; x < textBox.Length; x++)
@@ -121,40 +145,52 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             if (query == number)
             {
                 MessageBox.Show("Correct!");
-                score += 5;
+                score += (5 * (diff + 1));
                 round++;
                 if(round < 11)
                     reduction += (4 - diff);
+                _dt = null;
                 GenerateNumber();
             }
             else
+            {
                 MessageBox.Show("Wrong!");
+                _dt.Start();
+            }
         }
 
         private void buttonStartGame_Click(object sender, RoutedEventArgs e)
         {
             if(diff == -1 && gameStart == false)
             {
-                if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
+                round = 0;
+                score = 0;
+                playtime = 0;
+                if (comboboxDifficulty.SelectedItem == null)
+                    MessageBox.Show("Pick a difficulty!");
+                else
                 {
-                    diff = 0;
-                    defaulttimer = 60;
-                    gameStart = true;
+                    if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
+                    {
+                        diff = 0;
+                        defaulttimer = 60;
+                        gameStart = true;
+                    }
+                    if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
+                    {
+                        diff = 1;
+                        defaulttimer = 45;
+                        gameStart = true;
+                    }
+                    if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
+                    {
+                        diff = 2;
+                        defaulttimer = 30;
+                        gameStart = true;
+                    }
+                    if (gameStart)
+                        GenerateNumber();
                 }
-                if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
-                {
-                    diff = 1;
-                    defaulttimer = 45;
-                    gameStart = true;
-                }
-                if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
-                {
-                    diff = 2;
-                    defaulttimer = 30;
-                    gameStart = true;
-                }
-                if (gameStart)
-                    GenerateNumber();
             }
         }
     }
