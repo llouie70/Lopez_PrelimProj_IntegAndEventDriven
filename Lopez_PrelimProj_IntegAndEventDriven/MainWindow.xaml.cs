@@ -132,7 +132,6 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 MessageBox.Show("Game over! Your score is " + score + " with a play time of " + playtime + " seconds.");
                 gameStart = false;
                 _dt.Stop();
-                leaderboard.Add(name + "," + playtime + "," + score);
                 names[10] = name;
                 timeTaken[10] = playtime;
                 scores[10] = score;
@@ -318,9 +317,9 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             string nameTemp = "";
             int timeTakenTemp = 0;
             int scoreTemp = 0;
-            for(int x = 0; x < leaderboard.Count; x++)
+            for(int x = 0; x < names.Length; x++)
             {
-                for(int y = x + 1; y < leaderboard.Count; y++)
+                for(int y = x + 1; y < names.Length; y++)
                 {
                     if (scores[x] < scores[y])
                     {
@@ -330,7 +329,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                         names[x] = names[y];
                         scores[x] = scores[y];
                         timeTaken[x] = timeTaken[y];
-                        names[x] = nameTemp;
+                        names[y] = nameTemp;
                         scores[y] = scoreTemp;
                         timeTaken[y] = timeTakenTemp;
                     }
@@ -344,7 +343,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                             names[x] = names[y];
                             scores[x] = scores[y];
                             timeTaken[x] = timeTaken[y];
-                            names[x] = nameTemp;
+                            names[y] = nameTemp;
                             scores[y] = scoreTemp;
                             timeTaken[y] = timeTakenTemp;
                         }
