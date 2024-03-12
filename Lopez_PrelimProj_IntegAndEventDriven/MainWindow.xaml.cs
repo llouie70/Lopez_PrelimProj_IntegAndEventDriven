@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         int reduction = 0;
         bool gameStart = false;
         int playtime = 0;
+        string name = "";
 
         public MainWindow()
         {
@@ -41,6 +43,54 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             comboboxDifficulty.Items.Add("Easy");
             comboboxDifficulty.Items.Add("Normal");
             comboboxDifficulty.Items.Add("Hard");
+            if(!File.Exists("leaderboard_easy.csv"))
+            {
+                using(StreamWriter sw = new StreamWriter("leaderboard_easy.csv"))
+                {
+                    sw.WriteLine("John,200,100");
+                    sw.WriteLine("Jane,180,90");
+                    sw.WriteLine("Jonas,160,80");
+                    sw.WriteLine("Jan,140,70");
+                    sw.WriteLine("Jim,120,60");
+                    sw.WriteLine("Jimmy,100,50");
+                    sw.WriteLine("Joanne,80,40");
+                    sw.WriteLine("Janna,60,30");
+                    sw.WriteLine("JJ,40,20");
+                    sw.WriteLine("Joanne,20,10");
+                }
+            }
+            if (!File.Exists("leaderboard_medium.csv"))
+            {
+                using (StreamWriter sw = new StreamWriter("leaderboard_medium.csv"))
+                {
+                    sw.WriteLine("John,200,200");
+                    sw.WriteLine("Jane,180,180");
+                    sw.WriteLine("Jonas,160,160");
+                    sw.WriteLine("Jan,140,140");
+                    sw.WriteLine("Jim,120,120");
+                    sw.WriteLine("Jimmy,100,100");
+                    sw.WriteLine("Joanne,80,80");
+                    sw.WriteLine("Janna,60,60");
+                    sw.WriteLine("JJ,40,40");
+                    sw.WriteLine("Joanne,20,20");
+                }
+            }
+            if (!File.Exists("leaderboard_hard.csv"))
+            {
+                using (StreamWriter sw = new StreamWriter("leaderboard_hard.csv"))
+                {
+                    sw.WriteLine("John,200,300");
+                    sw.WriteLine("Jane,180,270");
+                    sw.WriteLine("Jonas,160,240");
+                    sw.WriteLine("Jan,140,210");
+                    sw.WriteLine("Jim,120,180");
+                    sw.WriteLine("Jimmy,100,150");
+                    sw.WriteLine("Joanne,80,120");
+                    sw.WriteLine("Janna,60,90");
+                    sw.WriteLine("JJ,40,60");
+                    sw.WriteLine("Joanne,20,30");
+                }
+            }
         }
 
         private void GenerateNumber()
@@ -77,6 +127,11 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 MessageBox.Show("Game over! Your score is " + score + " with a play time of " + playtime + " seconds.");
                 gameStart = false;
                 _dt.Stop();
+                labelName.Visibility = Visibility.Visible;
+                labelDifficulty.Visibility = Visibility.Visible;
+                textboxName.Visibility = Visibility.Visible;
+                comboboxDifficulty.Visibility = Visibility.Visible;
+                buttonStartGame.Visibility = Visibility.Visible;
                 diff = -1;
                 comboboxDifficulty.SelectedItem = null;
             }
@@ -168,13 +223,21 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         {
             if(diff == -1 && gameStart == false)
             {
+                name = textboxName.Text;
                 round = 0;
                 score = 0;
                 playtime = 0;
                 if (comboboxDifficulty.SelectedItem == null)
                     MessageBox.Show("Pick a difficulty!");
-                else
+                if (name == "")
+                    MessageBox.Show("Write your name!");
+                else if(comboboxDifficulty.SelectedItem != null && name != "")
                 {
+                    labelName.Visibility = Visibility.Collapsed;
+                    labelDifficulty.Visibility = Visibility.Collapsed;
+                    textboxName.Visibility = Visibility.Collapsed;
+                    comboboxDifficulty.Visibility = Visibility.Collapsed;
+                    buttonStartGame.Visibility = Visibility.Collapsed;
                     if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
                     {
                         diff = 0;

@@ -25,6 +25,9 @@
         <Label x:Name="labelNum" Content="Number to Decode" HorizontalAlignment="Left" Margin="36,55,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <Label x:Name="labelTime" Content="Time Remaining" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <Label x:Name="labelTotalScore" Content="Score" HorizontalAlignment="Right" Margin="0,55,36,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
+        <TextBox x:Name="textboxName" HorizontalAlignment="Center" Margin="0,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial"/>
+        <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="245,248,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
+        <Label x:Name="labelDifficulty" Content="DIFFICULTY" HorizontalAlignment="Left" Margin="179,278,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
 
     </Grid>
 </Window>
