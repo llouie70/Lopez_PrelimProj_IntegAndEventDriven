@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -36,6 +37,10 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         bool gameStart = false;
         int playtime = 0;
         string name = "";
+        List<string> leaderboard = new List<string>();
+        string[] names = new string[11];
+        int[] timeTaken = new int[11];
+        int[] scores = new int[11];
 
         public MainWindow()
         {
@@ -61,7 +66,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             }
             if (!File.Exists("leaderboard_medium.csv"))
             {
-                using (StreamWriter sw = new StreamWriter("leaderboard_medium.csv"))
+                using (StreamWriter sw = new StreamWriter("leaderboard_normal.csv"))
                 {
                     sw.WriteLine("John,200,200");
                     sw.WriteLine("Jane,180,180");
@@ -127,6 +132,11 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 MessageBox.Show("Game over! Your score is " + score + " with a play time of " + playtime + " seconds.");
                 gameStart = false;
                 _dt.Stop();
+                leaderboard.Add(name + "," + playtime + "," + score);
+                names[10] = name;
+                timeTaken[10] = playtime;
+                scores[10] = score;
+                SortLeaderboard();
                 labelName.Visibility = Visibility.Visible;
                 labelDifficulty.Visibility = Visibility.Visible;
                 textboxName.Visibility = Visibility.Visible;
@@ -227,11 +237,26 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 round = 0;
                 score = 0;
                 playtime = 0;
+                bool validname = true;
                 if (comboboxDifficulty.SelectedItem == null)
                     MessageBox.Show("Pick a difficulty!");
                 if (name == "")
+                {
                     MessageBox.Show("Write your name!");
-                else if(comboboxDifficulty.SelectedItem != null && name != "")
+                    validname = false;
+                }
+                if (name != "")
+                {
+                    for (int x = 0; x < name.Length; x++)
+                    {
+                        if (name[x] == ',')
+                        {
+                            MessageBox.Show("Invalid name!");
+                            validname = false;
+                        }
+                    }
+                }
+                if(comboboxDifficulty.SelectedItem != null && validname == true)
                 {
                     labelName.Visibility = Visibility.Collapsed;
                     labelDifficulty.Visibility = Visibility.Collapsed;
@@ -243,22 +268,94 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                         diff = 0;
                         defaulttimer = 60;
                         gameStart = true;
+                        ReadLeaderboard("easy");
                     }
                     if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
                     {
                         diff = 1;
                         defaulttimer = 45;
                         gameStart = true;
+                        ReadLeaderboard("normal");
                     }
                     if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
                     {
                         diff = 2;
                         defaulttimer = 30;
                         gameStart = true;
+                        ReadLeaderboard("hard");
                     }
                     if (gameStart)
                         GenerateNumber();
                 }
+            }
+        }
+
+        private void ReadLeaderboard(string difficulty)
+        {
+            leaderboard.Clear();
+            while(leaderboard.Count < 10)
+            {
+                string line = "";
+                using (StreamReader sr = new StreamReader("leaderboard_" + difficulty + ".csv"))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        leaderboard.Add(line);
+                    }
+                }
+            }
+            for(int x = 0; x < leaderboard.Count; x++)
+            {
+                string[] split = leaderboard[x].Split(',');
+                names[x] = split[0];
+                timeTaken[x] = int.Parse(split[1]);
+                scores[x] = int.Parse(split[2]);
+            }
+        }
+
+        private void SortLeaderboard()
+        {
+            string nameTemp = "";
+            int timeTakenTemp = 0;
+            int scoreTemp = 0;
+            for(int x = 0; x < leaderboard.Count; x++)
+            {
+                for(int y = x + 1; y < leaderboard.Count; y++)
+                {
+                    if (scores[x] < scores[y])
+                    {
+                        nameTemp = names[x];
+                        scoreTemp = scores[x];
+                        timeTakenTemp = timeTaken[x];
+                        names[x] = names[y];
+                        scores[x] = scores[y];
+                        timeTaken[x] = timeTaken[y];
+                        names[x] = nameTemp;
+                        scores[y] = scoreTemp;
+                        timeTaken[y] = timeTakenTemp;
+                    }
+                    if (scores[x] == scores[y])
+                    {
+                        if (timeTaken[x] > timeTaken[y])
+                        {
+                            nameTemp = names[x];
+                            scoreTemp = scores[x];
+                            timeTakenTemp = timeTaken[x];
+                            names[x] = names[y];
+                            scores[x] = scores[y];
+                            timeTaken[x] = timeTaken[y];
+                            names[x] = nameTemp;
+                            scores[y] = scoreTemp;
+                            timeTaken[y] = timeTakenTemp;
+                        }
+                    }
+                }
+            }
+            string[] listOfDifficulty = { "easy", "normal", "hard" };
+            using (StreamWriter sw = new StreamWriter("leaderboard_" + listOfDifficulty[diff] + ".csv"))
+            {
+                for (int x = 0; x < 10; x++)
+                    sw.WriteLine(names[x] + "," + timeTaken[x] + "," + scores[x]);
             }
         }
     }
