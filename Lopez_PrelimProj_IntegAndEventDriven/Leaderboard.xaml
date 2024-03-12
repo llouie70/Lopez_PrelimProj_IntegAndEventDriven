@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lopez_PrelimProj_IntegAndEventDriven"
         mc:Ignorable="d"
-        Title="Leaderboard" Height="450" Width="800">
+        Title="Leaderboard" Height="450" Width="400">
     <Grid>
         <Label x:Name="labelNum" Content="Leaderboard" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
-        <ListBox x:Name="listboxNames" HorizontalAlignment="Left" Height="350" Margin="10,61,0,0" VerticalAlignment="Top" Width="260" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="listboxTimePlayed" HorizontalAlignment="Center" Height="350" Margin="0,61,0,0" VerticalAlignment="Top" Width="260" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Center"/>
-        <ListBox x:Name="listboxScores" HorizontalAlignment="Left" Height="350" Margin="530,61,0,0" VerticalAlignment="Top" Width="260" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Center"/>
+        <ListBox x:Name="listboxNames" HorizontalAlignment="Center" Height="350" Margin="0,61,0,0" VerticalAlignment="Top" Width="380" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Center"/>
         <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Left" Margin="161,14,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
