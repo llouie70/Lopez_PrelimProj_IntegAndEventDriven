@@ -41,6 +41,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         string[] names = new string[11];
         int[] timeTaken = new int[11];
         int[] scores = new int[11];
+        Leaderboard leaderboardview = null;
 
         public MainWindow()
         {
@@ -48,9 +49,9 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             comboboxDifficulty.Items.Add("Easy");
             comboboxDifficulty.Items.Add("Normal");
             comboboxDifficulty.Items.Add("Hard");
-            if(!File.Exists("leaderboard_easy.csv"))
+            if (!File.Exists("leaderboard_easy.csv"))
             {
-                using(StreamWriter sw = new StreamWriter("leaderboard_easy.csv"))
+                using (StreamWriter sw = new StreamWriter("leaderboard_easy.csv"))
                 {
                     sw.WriteLine("John,200,100");
                     sw.WriteLine("Jane,180,90");
@@ -64,7 +65,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                     sw.WriteLine("Joanne,20,10");
                 }
             }
-            if (!File.Exists("leaderboard_medium.csv"))
+            if (!File.Exists("leaderboard_normal.csv"))
             {
                 using (StreamWriter sw = new StreamWriter("leaderboard_normal.csv"))
                 {
@@ -107,11 +108,11 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             textBox = new char[textBoxBinary.Length];
             for (int i = 0; i < textBoxBinary.Length; i++)
                 textBox[i] = textBoxBinary[i];
-            if(diff == 0)
+            if (diff == 0)
                 number = rnd.Next(0, 85) + 1;
-            if(diff == 1)
+            if (diff == 1)
                 number = rnd.Next(85, 170) + 1;
-            if(diff == 2)
+            if (diff == 2)
                 number = rnd.Next(170, 255) + 1;
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
@@ -182,7 +183,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         }
 
         private void button8_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             ChangeNumber(4);
         }
 
@@ -206,7 +207,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             _dt.Stop();
             int query = 0;
             int value = 128;
-            for(int x = 0; x < textBox.Length; x++)
+            for (int x = 0; x < textBox.Length; x++)
             {
                 query += int.Parse(textBox[x].ToString()) * value;
                 value /= 2;
@@ -216,7 +217,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 MessageBox.Show("Correct!");
                 score += (5 * (diff + 1));
                 round++;
-                if(round < 11)
+                if (round < 11)
                     reduction += (4 - diff);
                 _dt = null;
                 GenerateNumber();
@@ -230,7 +231,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
 
         private void buttonStartGame_Click(object sender, RoutedEventArgs e)
         {
-            if(diff == -1 && gameStart == false)
+            if (diff == -1 && gameStart == false)
             {
                 name = textboxName.Text;
                 round = 0;
@@ -255,7 +256,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                         }
                     }
                 }
-                if(comboboxDifficulty.SelectedItem != null && validname == true)
+                if (comboboxDifficulty.SelectedItem != null && validname == true)
                 {
                     labelName.Visibility = Visibility.Collapsed;
                     labelDifficulty.Visibility = Visibility.Collapsed;
@@ -292,7 +293,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         private void ReadLeaderboard(string difficulty)
         {
             leaderboard.Clear();
-            while(leaderboard.Count < 10)
+            while (leaderboard.Count < 10)
             {
                 string line = "";
                 using (StreamReader sr = new StreamReader("leaderboard_" + difficulty + ".csv"))
@@ -303,7 +304,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                     }
                 }
             }
-            for(int x = 0; x < leaderboard.Count; x++)
+            for (int x = 0; x < leaderboard.Count; x++)
             {
                 string[] split = leaderboard[x].Split(',');
                 names[x] = split[0];
@@ -317,9 +318,9 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             string nameTemp = "";
             int timeTakenTemp = 0;
             int scoreTemp = 0;
-            for(int x = 0; x < names.Length; x++)
+            for (int x = 0; x < names.Length; x++)
             {
-                for(int y = x + 1; y < names.Length; y++)
+                for (int y = x + 1; y < names.Length; y++)
                 {
                     if (scores[x] < scores[y])
                     {
@@ -356,6 +357,12 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 for (int x = 0; x < 10; x++)
                     sw.WriteLine(names[x] + "," + timeTaken[x] + "," + scores[x]);
             }
+        }
+
+        private void buttonLeaderboard_Click(object sender, RoutedEventArgs e)
+        {
+            leaderboardview = new Leaderboard();
+            leaderboardview.Show();
         }
     }
 }
