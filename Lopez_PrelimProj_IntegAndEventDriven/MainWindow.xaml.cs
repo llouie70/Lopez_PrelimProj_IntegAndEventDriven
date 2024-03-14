@@ -117,6 +117,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 number = rnd.Next(170, 255) + 1;
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
+            BinaryGame.Background = Brushes.LightGreen;
             _dt = new DispatcherTimer();
             _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
             _dt.Tick += _dt_Tick;
@@ -153,6 +154,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 comboboxDifficulty.Visibility = Visibility.Visible;
                 buttonStartGame.Visibility = Visibility.Visible;
                 diff = -1;
+                textboxName.Text = "";
                 comboboxDifficulty.SelectedItem = null;
             }
         }
