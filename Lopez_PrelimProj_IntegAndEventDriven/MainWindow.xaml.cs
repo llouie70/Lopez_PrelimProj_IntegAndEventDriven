@@ -42,6 +42,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         int[] timeTaken = new int[11];
         int[] scores = new int[11];
         Leaderboard leaderboardview = null;
+        double percentage = 0;
 
         public MainWindow()
         {
@@ -127,6 +128,15 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             int num = int.Parse(labelTimer.Content.ToString());
             num--;
             playtime++;
+            percentage = (double)num / (double)timer;
+            if (percentage > 0.75)
+                BinaryGame.Background = Brushes.LightGreen;
+            if (percentage < 0.75 && percentage > 0.5)
+                BinaryGame.Background = Brushes.LightGoldenrodYellow;
+            if (percentage < 0.5 && percentage > 0.25)
+                BinaryGame.Background = Brushes.Orange;
+            if (percentage < 0.25)
+                BinaryGame.Background = Brushes.Red;
             labelTimer.Content = num.ToString();
             if (num <= 0)
             {
