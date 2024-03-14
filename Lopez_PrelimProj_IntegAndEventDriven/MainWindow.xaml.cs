@@ -118,6 +118,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
             BinaryGame.Background = Brushes.LightGreen;
+            textboxBinaryNumber.Background = Brushes.LightGreen;
             _dt = new DispatcherTimer();
             _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
             _dt.Tick += _dt_Tick;
@@ -138,6 +139,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 BinaryGame.Background = Brushes.Orange;
             if (percentage < 0.25)
                 BinaryGame.Background = Brushes.Red;
+            textboxBinaryNumber.Background = BinaryGame.Background;
             labelTimer.Content = num.ToString();
             if (num <= 0)
             {
@@ -153,6 +155,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 textboxName.Visibility = Visibility.Visible;
                 comboboxDifficulty.Visibility = Visibility.Visible;
                 buttonStartGame.Visibility = Visibility.Visible;
+                buttonLeaderboard.Visibility = Visibility.Visible;
                 diff = -1;
                 textboxName.Text = "";
                 comboboxDifficulty.SelectedItem = null;
@@ -275,6 +278,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                     textboxName.Visibility = Visibility.Collapsed;
                     comboboxDifficulty.Visibility = Visibility.Collapsed;
                     buttonStartGame.Visibility = Visibility.Collapsed;
+                    buttonLeaderboard.Visibility = Visibility.Collapsed;
                     if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
                     {
                         diff = 0;
