@@ -50,6 +50,8 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             comboboxDifficulty.Items.Add("Easy");
             comboboxDifficulty.Items.Add("Normal");
             comboboxDifficulty.Items.Add("Hard");
+            BinaryGame.Background = Brushes.LightGreen;
+            textboxBinaryNumber.Background = Brushes.LightGreen;
             if (!File.Exists("leaderboard_easy.csv"))
             {
                 using (StreamWriter sw = new StreamWriter("leaderboard_easy.csv"))
