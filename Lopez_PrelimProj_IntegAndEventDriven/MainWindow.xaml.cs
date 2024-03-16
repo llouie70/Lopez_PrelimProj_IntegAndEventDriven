@@ -117,6 +117,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 number = rnd.Next(85, 170) + 1;
             if (diff == 2)
                 number = rnd.Next(170, 255) + 1;
+            labelRoundNumber.Content = (round + 1) + "";
             labelBinaryNumber.Content = number.ToString();
             labelScore.Content = score.ToString();
             BinaryGame.Background = Brushes.LightGreen;
@@ -381,6 +382,16 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
         {
             leaderboardview = new Leaderboard();
             leaderboardview.Show();
+        }
+
+        private void comboboxDifficulty_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
+                labelTimer.Content = "60";
+            if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
+                labelTimer.Content = "45";
+            if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
+                labelTimer.Content = "30";
         }
     }
 }

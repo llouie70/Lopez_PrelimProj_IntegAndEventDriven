@@ -8,7 +8,7 @@
         Title="8-Bit Binary Game" Height="450" Width="800">
     <Grid>
         <Label x:Name="labelBinaryNumber" Content="0" HorizontalAlignment="Left" Margin="36,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.236,0.659" FontSize="18" FontFamily="Bauhaus 93"/>
-        <Label x:Name="labelTimer" Content="60" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.236,0.659" FontSize="18" FontFamily="Bauhaus 93"/>
+        <Label x:Name="labelTimer" Content="0" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.236,0.659" FontSize="18" FontFamily="Bauhaus 93"/>
         <Label x:Name="labelScore" Content="0" HorizontalAlignment="Right" Margin="0,28,36,0" VerticalAlignment="Top" RenderTransformOrigin="0.236,0.659" FontSize="18" FontFamily="Bauhaus 93"/>
         <TextBox x:Name="textboxBinaryNumber" HorizontalAlignment="Center" Margin="0,112,0,0" TextWrapping="Wrap" Text="00000000" VerticalAlignment="Top" Width="206" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" Height="46" FontFamily="Bauhaus 93"/>
         <Button x:Name="button128" Content="128" HorizontalAlignment="Left" Margin="266,173,0,0" VerticalAlignment="Top" Click="button128_Click" FontFamily="Georgia"/>
@@ -20,15 +20,17 @@
         <Button x:Name="button2" Content="002" HorizontalAlignment="Right" Margin="0,173,297,0" VerticalAlignment="Top" RenderTransformOrigin="1.452,0.453" Click="button2_Click" FontFamily="Georgia"/>
         <Button x:Name="button1" Content="001" HorizontalAlignment="Right" Margin="0,173,266,0" VerticalAlignment="Top" RenderTransformOrigin="1.452,0.453" Click="button1_Click" FontFamily="Georgia"/>
         <Button x:Name="buttonSubmit" Content="Submit" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" Click="buttonSubmit_Click" FontFamily="Old English Text MT"/>
-        <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Center" Margin="0,285,0,0" VerticalAlignment="Top" Width="120" FontFamily="Old English Text MT"/>
+        <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Center" Margin="0,285,0,0" VerticalAlignment="Top" Width="120" FontFamily="Old English Text MT" SelectionChanged="comboboxDifficulty_SelectionChanged"/>
         <Button x:Name="buttonStartGame" Content="Start Game" HorizontalAlignment="Center" Margin="0,330,0,0" VerticalAlignment="Top" Click="buttonStartGame_Click" FontFamily="Old English Text MT"/>
         <Label x:Name="labelNum" Content="Number to Decode" HorizontalAlignment="Left" Margin="36,55,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <Label x:Name="labelTime" Content="Time Remaining" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <Label x:Name="labelTotalScore" Content="Score" HorizontalAlignment="Right" Margin="0,55,36,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <TextBox x:Name="textboxName" HorizontalAlignment="Center" Margin="0,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontFamily="Arial"/>
-        <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="245,248,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
-        <Label x:Name="labelDifficulty" Content="DIFFICULTY" HorizontalAlignment="Left" Margin="179,278,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
+        <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="245,248,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold" HorizontalContentAlignment="Right"/>
+        <Label x:Name="labelDifficulty" Content="DIFFICULTY" HorizontalAlignment="Left" Margin="179,278,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold" HorizontalContentAlignment="Right"/>
         <Button x:Name="buttonLeaderboard" Content="Leaderboard" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontFamily="Old English Text MT" Click="buttonLeaderboard_Click"/>
+        <Label x:Name="labelRound" Content="Round" HorizontalAlignment="Right" Margin="0,105,36,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold" RenderTransformOrigin="1.138,0.894"/>
+        <Label x:Name="labelRoundNumber" Content="0" HorizontalAlignment="Right" Margin="0,79,36,0" VerticalAlignment="Top" RenderTransformOrigin="-1.491,0.563" FontSize="18" FontFamily="Bauhaus 93"/>
 
     </Grid>
 </Window>
