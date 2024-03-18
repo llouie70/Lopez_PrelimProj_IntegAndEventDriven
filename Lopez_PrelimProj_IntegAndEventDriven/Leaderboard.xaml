@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="labelNum" Content="Leaderboard" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Copperplate Gothic Bold"/>
         <ListBox x:Name="listboxNames" HorizontalAlignment="Center" Height="208" Width="380" HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" FontFamily="Arial"/>
-        <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Left" Margin="161,14,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboboxDifficulty_SelectionChanged"/>
+        <ComboBox x:Name="comboboxDifficulty" HorizontalAlignment="Left" Margin="161,14,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="comboboxDifficulty_SelectionChanged" FontFamily="Arial"/>
 
     </Grid>
 </Window>

@@ -52,6 +52,11 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             comboboxDifficulty.Items.Add("Hard");
             BinaryGame.Background = Brushes.LightGreen;
             textboxBinaryNumber.Background = Brushes.LightGreen;
+            buttonSubmit.Background = Brushes.ForestGreen;
+            buttonLeaderboard.Background = Brushes.Yellow;
+            buttonStartGame.Background = Brushes.ForestGreen;
+            labelTimer.Content = "60";
+            CollapseControls();
             if (!File.Exists("leaderboard_easy.csv"))
             {
                 using (StreamWriter sw = new StreamWriter("leaderboard_easy.csv"))
@@ -122,6 +127,14 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             labelScore.Content = score.ToString();
             BinaryGame.Background = Brushes.LightGreen;
             textboxBinaryNumber.Background = Brushes.LightGreen;
+            button128.Background = Brushes.Red;
+            button64.Background = Brushes.Red;
+            button32.Background = Brushes.Red;
+            button16.Background = Brushes.Red;
+            button8.Background = Brushes.Red;
+            button4.Background = Brushes.Red;
+            button2.Background = Brushes.Red;
+            button1.Background = Brushes.Red;
             _dt = new DispatcherTimer();
             _dt.Interval = new TimeSpan(0, 0, 0, 1, 0);
             _dt.Tick += _dt_Tick;
@@ -137,7 +150,7 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
             if (percentage > 0.75)
                 BinaryGame.Background = Brushes.LightGreen;
             if (percentage < 0.75 && percentage > 0.5)
-                BinaryGame.Background = Brushes.LightGoldenrodYellow;
+                BinaryGame.Background = Brushes.Yellow;
             if (percentage < 0.5 && percentage > 0.25)
                 BinaryGame.Background = Brushes.Orange;
             if (percentage < 0.25)
@@ -153,12 +166,15 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 timeTaken[10] = playtime;
                 scores[10] = score;
                 SortLeaderboard();
+                CollapseControls();
                 labelName.Visibility = Visibility.Visible;
                 labelDifficulty.Visibility = Visibility.Visible;
                 textboxName.Visibility = Visibility.Visible;
                 comboboxDifficulty.Visibility = Visibility.Visible;
                 buttonStartGame.Visibility = Visibility.Visible;
                 buttonLeaderboard.Visibility = Visibility.Visible;
+                BinaryGame.Background = Brushes.LightGreen;
+                textboxBinaryNumber.Background = Brushes.LightGreen;
                 diff = -1;
                 textboxName.Text = "";
                 comboboxDifficulty.SelectedItem = null;
@@ -167,57 +183,84 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
 
         private void ChangeNumber(int x)
         {
-            if (textBox == null)
-                MessageBox.Show("Pick a difficulty first!");
+            if (textBox[x] == '0')
+                textBox[x] = '1';
             else
-            {
-                if (textBox[x] == '0')
-                    textBox[x] = '1';
-                else
-                    textBox[x] = '0';
-                textboxBinaryNumber.Text = "";
-                for (int i = 0; i < textBox.Length; i++)
-                    textboxBinaryNumber.Text += textBox[i];
-            }
+                textBox[x] = '0';
+            textboxBinaryNumber.Text = "";
+            for (int i = 0; i < textBox.Length; i++)
+                textboxBinaryNumber.Text += textBox[i];
         }
         private void button128_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(0);
+            if (textBox[0] == '0')
+                button128.Background = Brushes.Red;
+            else
+                button128.Background = Brushes.LightGreen;
         }
 
         private void button64_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(1);
+            if (textBox[1] == '0')
+                button64.Background = Brushes.Red;
+            else
+                button64.Background = Brushes.LightGreen;
         }
 
         private void button32_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(2);
+            if (textBox[2] == '0')
+                button32.Background = Brushes.Red;
+            else
+                button32.Background = Brushes.LightGreen;
         }
 
         private void button16_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(3);
+            if (textBox[3] == '0')
+                button16.Background = Brushes.Red;
+            else
+                button16.Background = Brushes.LightGreen;
         }
 
         private void button8_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(4);
+            if (textBox[4] == '0')
+                button8.Background = Brushes.Red;
+            else
+                button8.Background = Brushes.LightGreen;
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(5);
+            if (textBox[5] == '0')
+                button4.Background = Brushes.Red;
+            else
+                button4.Background = Brushes.LightGreen;
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(6);
+            if (textBox[6] == '0')
+                button2.Background = Brushes.Red;
+            else
+                button2.Background = Brushes.LightGreen;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             ChangeNumber(7);
+            if (textBox[7] == '0')
+                button1.Background = Brushes.Red;
+            else
+                button1.Background = Brushes.LightGreen;
         }
 
         private void buttonSubmit_Click(object sender, RoutedEventArgs e)
@@ -276,6 +319,16 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
                 }
                 if (comboboxDifficulty.SelectedItem != null && validname == true)
                 {
+                    textboxBinaryNumber.Visibility = Visibility.Visible;
+                    button128.Visibility = Visibility.Visible;
+                    button64.Visibility = Visibility.Visible;
+                    button32.Visibility = Visibility.Visible;
+                    button16.Visibility = Visibility.Visible;
+                    button8.Visibility = Visibility.Visible;
+                    button4.Visibility = Visibility.Visible;
+                    button2.Visibility = Visibility.Visible;
+                    button1.Visibility = Visibility.Visible;
+                    buttonSubmit.Visibility = Visibility.Visible;
                     labelName.Visibility = Visibility.Collapsed;
                     labelDifficulty.Visibility = Visibility.Collapsed;
                     textboxName.Visibility = Visibility.Collapsed;
@@ -386,12 +439,29 @@ namespace Lopez_PrelimProj_IntegAndEventDriven
 
         private void comboboxDifficulty_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
-                labelTimer.Content = "60";
-            if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
-                labelTimer.Content = "45";
-            if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
-                labelTimer.Content = "30";
+            if (diff > -1)
+            {
+                if (comboboxDifficulty.SelectedItem.ToString() == "Easy")
+                    labelTimer.Content = "60";
+                if (comboboxDifficulty.SelectedItem.ToString() == "Normal")
+                    labelTimer.Content = "45";
+                if (comboboxDifficulty.SelectedItem.ToString() == "Hard")
+                    labelTimer.Content = "30";
+            }
+        }
+
+        private void CollapseControls()
+        {
+            textboxBinaryNumber.Visibility = Visibility.Collapsed;
+            button128.Visibility = Visibility.Collapsed;
+            button64.Visibility = Visibility.Collapsed;
+            button32.Visibility = Visibility.Collapsed;
+            button16.Visibility = Visibility.Collapsed;
+            button8.Visibility = Visibility.Collapsed;
+            button4.Visibility = Visibility.Collapsed;
+            button2.Visibility = Visibility.Collapsed;
+            button1.Visibility = Visibility.Collapsed;
+            buttonSubmit.Visibility = Visibility.Collapsed;
         }
     }
 }
